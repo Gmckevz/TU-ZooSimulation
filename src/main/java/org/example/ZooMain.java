@@ -8,7 +8,9 @@ import org.example.admin.people.Handler;
 
 import java.util.Scanner;
 
+
 public class ZooMain {
+
     public static void main(String[] args) {
         Scanner inputReader = new Scanner(System.in);
         int choice = 0;
@@ -37,6 +39,7 @@ public class ZooMain {
         simba.setLocation("Enclosure");
         felineEnclosure.setAnimal(simba);
 
+        boolean isZooOpen = false;
 
         while(choice != 3) {
             // zoo console, choose if you are accessing as an admin or visitor
@@ -252,6 +255,8 @@ public class ZooMain {
                                     break;
 
                                 case 3:
+
+
                                     break;
 
                                 case 4:
@@ -265,11 +270,6 @@ public class ZooMain {
                                     break;
                             }
                         }
-
-
-
-
-
                     } else {
                         System.out.println("Access Denied!");
                     }
