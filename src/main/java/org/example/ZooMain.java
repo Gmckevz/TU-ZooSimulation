@@ -1,10 +1,9 @@
 package org.example;
 
 import org.example.admin.Zoo;
-import org.example.admin.building.BirdEnclosure;
-import org.example.admin.building.FelineEnclosure;
-import org.example.admin.building.PachydermEnclosure;
+import org.example.admin.building.*;
 import org.example.admin.people.Handler;
+import org.example.admin.people.Managers;
 
 import java.util.Scanner;
 
@@ -39,8 +38,6 @@ public class ZooMain {
         simba.setLocation("Enclosure");
         felineEnclosure.setAnimal(simba);
 
-        boolean isZooOpen = false;
-
         while(choice != 3) {
             // zoo console, choose if you are accessing as an admin or visitor
             System.out.println("------Welcome to the Zoo------");
@@ -69,6 +66,9 @@ public class ZooMain {
                     zooInstance.validateAdminUser(username,password);
 
                     if (zooInstance.isAdminUserLoggedIn()) {
+                        // declare manager object
+                        Managers manager = new Managers();
+
                         System.out.println("Login successful. Welcome!");
                         int adminDashboardChoice = 0;
 
@@ -255,18 +255,23 @@ public class ZooMain {
                                     break;
 
                                 case 3:
-
-
+                                    zooInstance.setZooOpen(manager.openZoo());
                                     break;
 
                                 case 4:
+                                    zooInstance.setZooOpen(manager.closeZoo());
                                     break;
 
                                 case 5:
+                                    System.out.println("Closing Zoo Admin Console");
+                                    // add new line
+                                    System.out.println();
                                     break;
 
                                 default:
                                     System.out.println("Invalid Input, try again!");
+                                    // add new line
+                                    System.out.println();
                                     break;
                             }
                         }
@@ -279,9 +284,163 @@ public class ZooMain {
                     break;
 
                 case 2:
-                    System.out.println("test");
-                    break;
+                    if (zooInstance.isZooOpen()) {
+                        TicketShop ticketShop = new TicketShop();
+                        ticketShop.displayWelcomeMessage();
+                        choice = 0;
 
+                        while (choice != 3) {
+                            System.out.println("1. Buy Ticket");
+                            System.out.println("2. Enter Existing Ticket Number");
+                            System.out.println("3. Exit Zoo");
+                            System.out.print("Enter Choice: ");
+                            choice = inputReader.nextInt();
+
+                            switch (choice) {
+                                case 1:
+                                    System.out.print("Enter your name: ");
+                                    String nameForTicket = inputReader.next();
+                                    System.out.print("Enter your age: ");
+                                    int age = inputReader.nextInt();
+
+                                    ticketShop.determinePriceOfTicket(age);
+
+                                    System.out.print("Proceed with purchase? (yes/no): ");
+                                    String checkoutChoice = inputReader.next();
+
+                                    if (checkoutChoice.equalsIgnoreCase("yes")) {
+                                        String ticketNumber = ticketShop.getTicketNumber();
+                                        zooInstance.addTicketToSystem(ticketNumber);
+
+                                        System.out.println("Ticket Purchased!");
+                                        System.out.println("Your ticket code is: " + ticketNumber);
+                                        System.out.println("Please enter your ticket number to enter the zoo.");
+                                    }
+                                    break;
+
+                                case 2:
+                                    System.out.print("Enter your ticket number: ");
+                                    String existingTicketNumber = inputReader.next();
+                                    if(zooInstance.validateTicket(existingTicketNumber)) {
+                                        // zoo shop instance
+                                        ZooShop zooShop = new ZooShop();
+
+                                        // zoo visitor menu
+                                        int visitorMenuChoice = 0;
+
+                                        while (visitorMenuChoice != 4) {
+                                            System.out.println("Welcome to the Zoo!");
+                                            System.out.println("What would you like to do?");
+                                            System.out.println("1. Visit Enclosure");
+                                            System.out.println("2. Visit Shop");
+                                            System.out.println("3. Visit Hospital");
+                                            System.out.println("4. Leave Zoo");
+                                            System.out.print("Choose an option: ");
+                                            visitorMenuChoice = inputReader.nextInt();
+
+                                            switch (visitorMenuChoice) {
+                                                case 1:
+                                                    System.out.println("=== Zoo Enclosure ===");
+                                                    System.out.println("Choose Enclosure:");
+                                                    System.out.println("1. Pachyderm (Elephant)");
+                                                    System.out.println("2. Feline (Lion)");
+                                                    System.out.println("3. Bird (Owl)");
+                                                    System.out.print("Choose an option: ");
+                                                    int zooEnclosureChoice = inputReader.nextInt();
+
+                                                    String feedChoice;
+
+                                                    switch (zooEnclosureChoice) {
+                                                        case 1:
+                                                            Elephant elephant = new Elephant();
+                                                            System.out.print("Would you like to feed the Elephant? (yes/no): ");
+                                                            feedChoice = inputReader.next();
+
+                                                            if (feedChoice.equalsIgnoreCase("yes")){
+                                                                elephant.eat();
+                                                                elephant.makeSound();
+                                                            }
+                                                            break;
+
+                                                        case 2:
+                                                            Lion lion = new Lion();
+                                                            System.out.print("Would you like to feed the Lion? (yes/no): ");
+                                                            feedChoice = inputReader.next();
+
+                                                            if (feedChoice.equalsIgnoreCase("yes")) {
+                                                                lion.eat();
+                                                                lion.makeSound();
+                                                            }
+                                                            break;
+
+                                                        case 3:
+                                                            Owl owl = new Owl();
+                                                            System.out.print("Would you like to feed the Owl? (yes/no): ");
+                                                            feedChoice = inputReader.next();
+
+                                                            if (feedChoice.equalsIgnoreCase("yes")) {
+                                                                owl.eat();
+                                                                owl.makeSound();
+                                                            }
+
+                                                            break;
+
+                                                        default:
+                                                            System.out.println("Invalid input, try again.");
+                                                    }
+                                                    break;
+
+                                                case 2:
+                                                    System.out.println("=== Zoo Shop ===");
+                                                    zooShop.displayProducts();
+
+                                                    System.out.print("Enter the number of the item you want to buy: ");
+                                                    int zooItemChoice = inputReader.nextInt();
+
+                                                    zooShop.showSelectedItem(zooItemChoice);
+                                                    zooShop.showTotalItemsInCart();
+
+                                                    System.out.print("Proceed to Checkout? (yes/no): ");
+                                                    String zooShopCheckoutChoice = inputReader.next();
+
+                                                    if (zooShopCheckoutChoice.equalsIgnoreCase("yes")){
+                                                        zooShop.checkout(zooShop.getProductsCart(), zooShop.getProductsCartPrice());
+                                                    }
+                                                    break;
+
+                                                case 3:
+                                                    break;
+
+
+                                                case 4:
+                                                    //exits the zoo and stops the program
+                                                    choice = 3;
+                                                    break;
+
+                                            }
+                                        }
+
+                                    } else {
+                                        System.out.println("Ticket is Invalid, please try again or purchase a ticket.");
+                                    }
+                                    break;
+
+                                case 3:
+                                    System.out.println("Exiting Zoo...");
+                                    break;
+
+                                default:
+                                    System.out.println("Invalid Entry, please try again.");
+                                    break;
+                            }
+                        }
+
+                    } else {
+                        System.out.println("Zoo is not yet open, please try again later.");
+                        // add new line
+                        System.out.println();
+                    }
+                    break;
 
                 case 3:
                     System.out.println("Exiting Program, Goodbye!");

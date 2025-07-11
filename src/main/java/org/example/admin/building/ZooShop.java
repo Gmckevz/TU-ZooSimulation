@@ -9,7 +9,7 @@ public class ZooShop extends Shop{
     private ArrayList<String> productsCart;
     private ArrayList<Double> productsCartPrice;
 
-    public void Shop(){
+    public ZooShop(){
         // initialize products and products price ArrayLists
         products = new ArrayList<>();
         productsPrice = new ArrayList<>();
@@ -41,6 +41,17 @@ public class ZooShop extends Shop{
         System.out.println(products.get(index-1) + "(P" + productsPrice.get(index-1) + ")");
         productsCart.add(products.get(index-1));
         productsCartPrice.add(productsPrice.get(index-1));
+    }
+
+    public void showTotalItemsInCart() {
+        double totalPriceInCart = 0.0;
+        System.out.println("Items in Cart:");
+        for (int i = 0; i < productsCart.size(); i++) {
+            System.out.println(" -" + productsCart.get(i) + " (P" + productsCartPrice.get(i) + ")");
+            totalPriceInCart += productsCartPrice.get(i);
+        }
+
+        System.out.println("Total: P" + totalPriceInCart);
     }
 
     public void resetCart() {
