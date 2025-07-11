@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Shop extends Building{
 
-    public void checkoutZooShop(ArrayList<String> productsName, ArrayList<Double> productsPrice){
+    public void checkout(ArrayList<String> productsName, ArrayList<Double> productsPrice){
         System.out.println("Payment Successful!");
         System.out.println("Receipt:");
 
@@ -20,7 +20,7 @@ public class Shop extends Building{
         System.out.println("Total Paid: P" + totalPaid);
     }
 
-    public void checkoutTicket(String ticketCode, Zoo zooInstance) {
+    public void checkout(String ticketCode, Zoo zooInstance) {
         System.out.println("Ticket Purchased!");
         System.out.println("Your ticket code is: " + ticketCode);
 

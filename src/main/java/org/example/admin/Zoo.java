@@ -1,9 +1,15 @@
 package org.example.admin;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Zoo {
+    // ADMIN CREDENTIALS
+    private String ADMIN_USERNAME = "admin";
+    private String PASSWORD = "adminadmin";
+    private boolean isAdminLoggedIn = false;
+    // ADMIN CREDENTIALS
+
+    // Zoo Staff Details
     private String managerName;
     private String vetName;
     private String pachydermHandler;
@@ -12,21 +18,13 @@ public class Zoo {
     private String ticketShopVendor;
     private String shopVendor;
 
+    // Ticket Numbers List
     private final ArrayList<String> ticketNumbers = new ArrayList<>();
 
+    // Zoo open or closed
+    private boolean isZooOpen = false;
+
     public Zoo() {}
-
-    public Zoo(String managerName, String vetName, String pachydermHandler, String felineHandler, String birdHandler, String ticketShopVendor, String shopVendor) {
-        this.managerName = managerName;
-        this.vetName = vetName;
-        this.pachydermHandler = pachydermHandler;
-        this.felineHandler = felineHandler;
-        this.birdHandler = birdHandler;
-        this.ticketShopVendor = ticketShopVendor;
-        this.shopVendor = shopVendor;
-
-        System.out.println("Zoo staff setup complete");
-    }
 
     public boolean validateTicket(String ticketNumber) {
         boolean isTicketValid = false;
@@ -45,6 +43,36 @@ public class Zoo {
         this.ticketNumbers.add(ticketNumber);
         System.out.println("[Ticket added to System]");
     }
+
+    public boolean validateAdminUser(String username, String password) {
+        if (username.equals(ADMIN_USERNAME) && password.equals(PASSWORD)) {
+            isAdminLoggedIn = true;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isAdminUserLoggedIn() {
+        return isAdminLoggedIn;
+    }
+
+    public void logoutAdmin(){
+        isAdminLoggedIn = false;
+    }
+
+    public void populateZooSetupDetails(String managerName, String vetName, String pachydermHandler, String felineHandler, String birdHandler, String ticketShopVendor, String shopVendor) {
+        this.managerName = managerName;
+        this.vetName = vetName;
+        this.pachydermHandler = pachydermHandler;
+        this.felineHandler = felineHandler;
+        this.birdHandler = birdHandler;
+        this.ticketShopVendor = ticketShopVendor;
+        this.shopVendor = shopVendor;
+
+        System.out.println("Zoo staff setup complete");
+    }
+
 
     public String getManagerName() {
         return managerName;
@@ -106,4 +134,11 @@ public class Zoo {
         return ticketNumbers;
     }
 
+    public boolean isZooOpen() {
+        return isZooOpen;
+    }
+
+    public void setZooOpen(boolean zooOpen) {
+        isZooOpen = zooOpen;
+    }
 }
