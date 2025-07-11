@@ -1,8 +1,9 @@
 package org.example.admin.building;
 
-public class PachydermEnclosure extends Enclosure{
+import org.example.Pachyderm;
 
-    public PachydermEnclosure() {
-    }
+import java.util.ArrayList;
+
+public class PachydermEnclosure extends Enclosure{
 
 }

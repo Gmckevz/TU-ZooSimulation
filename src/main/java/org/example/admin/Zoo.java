@@ -1,6 +1,7 @@
 package org.example.admin;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Zoo {
     // ADMIN CREDENTIALS
@@ -61,14 +62,24 @@ public class Zoo {
         isAdminLoggedIn = false;
     }
 
-    public void populateZooSetupDetails(String managerName, String vetName, String pachydermHandler, String felineHandler, String birdHandler, String ticketShopVendor, String shopVendor) {
-        this.managerName = managerName;
-        this.vetName = vetName;
-        this.pachydermHandler = pachydermHandler;
-        this.felineHandler = felineHandler;
-        this.birdHandler = birdHandler;
-        this.ticketShopVendor = ticketShopVendor;
-        this.shopVendor = shopVendor;
+    public void populateZooSetupDetails() {
+        Scanner inputReader = new Scanner(System.in);
+
+        System.out.println("--- Zoo Setup ---");
+        System.out.print("Enter your name, Manager: ");
+        this.managerName = inputReader.nextLine();
+        System.out.print("Enter Veterinarian's Name: ");
+        this.vetName = inputReader.nextLine();
+        System.out.print("Enter Handler for Pachyderm Enclosure: ");
+        this.pachydermHandler = inputReader.nextLine();
+        System.out.print("Enter Handler for Feline Enclosure: ");
+        this.felineHandler = inputReader.nextLine();
+        System.out.print("Enter Handler for Bird Enclosure: ");
+        this.birdHandler = inputReader.nextLine();
+        System.out.print("Enter Vendor for Ticket Shop: ");
+        this.ticketShopVendor = inputReader.nextLine();
+        System.out.print("Enter Vendor for Shop: ");
+        this.shopVendor = inputReader.nextLine();
 
         System.out.println("Zoo staff setup complete");
     }

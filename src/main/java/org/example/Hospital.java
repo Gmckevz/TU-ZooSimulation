@@ -7,9 +7,15 @@ import java.util.ArrayList;
 
 public class Hospital {
 
-    private ArrayList<String> sickAnimals;
-    private ArrayList<String> healedAnimals;
+    private ArrayList<Animal> sickAnimals;
+    private ArrayList<Animal> healedAnimals;
     private ArrayList<String> dateTime;
+
+    public Hospital() {
+        sickAnimals = new ArrayList<>();
+        healedAnimals = new ArrayList<>();
+        dateTime = new ArrayList<>();
+    }
 
     Zoo zoo = new Zoo();
 
@@ -17,37 +23,40 @@ public class Hospital {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String formattedDateTime = now.format(formatter);
 
-    void viewSickAnimals() {
-        sickAnimals = new ArrayList<>();
-        for (String animal : sickAnimals) {
-            System.out.println("-" + animal);
+    public void viewSickAnimals() {
+        for (Animal animal : sickAnimals) {
+            System.out.println("-" + animal.getName());
         }
     }
 
-    void viewHealAnimals(){
-        for (String animal : healedAnimals) {
-            System.out.println("-" + animal);
+    public void viewHealAnimals(){
+        for (Animal animal : healedAnimals) {
+            System.out.println("-" + animal.getName());
         }
     }
 
-    void heal(){
-        healedAnimals = new ArrayList<>();
-        dateTime = new ArrayList<>();
+    public void heal(){
         System.out.println(zoo.getVetName() + " healing sick animals...");
-        for (String animal : sickAnimals) {
-            System.out.println("Healed:" + animal + "\n" + animal +" has been discharged and returned to enclosure.");
+        for (Animal animal : sickAnimals) {
+            System.out.println("Healed:" + animal.getName() + "\n" + animal.getName() +" has been discharged and returned to enclosure.");
             healedAnimals.add(animal);
             dateTime.add(formattedDateTime);
+            animal.setHealthy(true);
         }
         sickAnimals.clear();
     }
 
-    void attendScienceLecture() {
+    public void attendScienceLecture() {
         System.out.println(zoo.getVetName() + " gives a science lecture on animal health and conservation.");
     }
 
-    void exitZoo(){
+    public void exitZoo(){
         System.out.println("Exiting Zoo Vet Hospital. Goodbye!");
+    }
+
+    public void addSickAnimal(Animal animal, LocalDateTime admitDateTime) {
+        sickAnimals.add(animal);
+        dateTime.add(admitDateTime.toString());
     }
 
 }
