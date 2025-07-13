@@ -15,11 +15,4 @@ public class Enclosure extends Building{
     public void setAnimal(Animal animal) {
         this.animals.add(animal);
     }
-
-    public void sendToHospital(int index) {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-
-        System.out.println("Sending to Hospital...");
-        System.out.println(animals.get(index) + " admitted at " + currentDateTime);
-    }
 }

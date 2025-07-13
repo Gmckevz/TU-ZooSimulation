@@ -1,6 +1,10 @@
 package org.example;
 
 import org.example.admin.Zoo;
+import org.example.admin.building.BirdEnclosure;
+import org.example.admin.building.FelineEnclosure;
+import org.example.admin.building.PachydermEnclosure;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,41 +21,34 @@ public class Hospital {
         dateTime = new ArrayList<>();
     }
 
-    Zoo zoo = new Zoo();
-
-    LocalDateTime now = LocalDateTime.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    String formattedDateTime = now.format(formatter);
-
     public void viewSickAnimals() {
-        for (Animal animal : sickAnimals) {
-            System.out.println("-" + animal.getName());
+        System.out.println("Sick Animals Currently Admitted");
+
+        if (sickAnimals.isEmpty()) {
+            System.out.println("No Animals are Admitted");
+        } else {
+            for (Animal animal : sickAnimals) {
+                System.out.println("-" + animal.getName());
+            }
         }
+
     }
 
     public void viewHealAnimals(){
-        for (Animal animal : healedAnimals) {
-            System.out.println("-" + animal.getName());
+        System.out.println("Healed Animals with Timestamps");
+
+        if (healedAnimals.isEmpty()) {
+            System.out.println("No Animals are Healed");
+        } else {
+            for (int i = 0; i < healedAnimals.size(); i++) {
+                System.out.println("-" + healedAnimals.get(i).getName() + " (" + dateTime.get(i) + ")");
+            }
         }
+
     }
 
-    public void heal(){
-        System.out.println(zoo.getVetName() + " healing sick animals...");
-        for (Animal animal : sickAnimals) {
-            System.out.println("Healed:" + animal.getName() + "\n" + animal.getName() +" has been discharged and returned to enclosure.");
-            healedAnimals.add(animal);
-            dateTime.add(formattedDateTime);
-            animal.setHealthy(true);
-        }
-        sickAnimals.clear();
-    }
-
-    public void attendScienceLecture() {
-        System.out.println(zoo.getVetName() + " gives a science lecture on animal health and conservation.");
-    }
-
-    public void exitZoo(){
-        System.out.println("Exiting Zoo Vet Hospital. Goodbye!");
+    public void attendScienceLecture(Zoo zoo) {
+        System.out.println("Dr. " + zoo.getVet().getName() + " gives a science lecture on animal health and conservation.");
     }
 
     public void addSickAnimal(Animal animal, LocalDateTime admitDateTime) {
@@ -59,4 +56,40 @@ public class Hospital {
         dateTime.add(admitDateTime.toString());
     }
 
+    public void returnHealedAnimalsToEnclosure(PachydermEnclosure pachydermEnclosure, FelineEnclosure felineEnclosure, BirdEnclosure birdEnclosure) {
+        for (Animal animal: healedAnimals) {
+            if (animal instanceof Pachyderm) {
+                pachydermEnclosure.getAnimals().add(animal);
+            } else if(animal instanceof Feline) {
+                felineEnclosure.getAnimals().add(animal);
+            } else {
+                birdEnclosure.getAnimals().add(animal);
+            }
+        }
+
+    }
+
+    public ArrayList<Animal> getSickAnimals() {
+        return sickAnimals;
+    }
+
+    public void setSickAnimals(ArrayList<Animal> sickAnimals) {
+        this.sickAnimals = sickAnimals;
+    }
+
+    public ArrayList<Animal> getHealedAnimals() {
+        return healedAnimals;
+    }
+
+    public void setHealedAnimals(ArrayList<Animal> healedAnimals) {
+        this.healedAnimals = healedAnimals;
+    }
+
+    public ArrayList<String> getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(ArrayList<String> dateTime) {
+        this.dateTime = dateTime;
+    }
 }

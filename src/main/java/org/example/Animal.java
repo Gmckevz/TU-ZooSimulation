@@ -5,6 +5,7 @@ public abstract class Animal {
     private String name;
     private boolean isHealthy;
     private String location;
+    private boolean isAnimalSentToHospital;
 
     Animal() {
 
@@ -13,6 +14,7 @@ public abstract class Animal {
         this.name = name;
         this.isHealthy = isHealthy;
         this.location = location;
+        this.isAnimalSentToHospital = false;
     }
 
     abstract void eat();
@@ -40,5 +42,13 @@ public abstract class Animal {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public boolean isAnimalSentToHospital() {
+        return isAnimalSentToHospital;
+    }
+
+    public void setAnimalSentToHospital(boolean animalSentToHospital) {
+        isAnimalSentToHospital = animalSentToHospital;
     }
 }

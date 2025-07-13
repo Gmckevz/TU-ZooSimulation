@@ -1,5 +1,11 @@
 package org.example.admin;
 
+import org.example.admin.building.Shop;
+import org.example.admin.people.Handler;
+import org.example.admin.people.Managers;
+import org.example.admin.people.Vendors;
+import org.example.admin.people.Veterinarians;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,13 +17,13 @@ public class Zoo {
     // ADMIN CREDENTIALS
 
     // Zoo Staff Details
-    private String managerName;
-    private String vetName;
-    private String pachydermHandler;
-    private String felineHandler;
-    private String birdHandler;
-    private String ticketShopVendor;
-    private String shopVendor;
+    private Managers manager;
+    private Veterinarians vet;
+    private Handler pachydermHandler;
+    private Handler felineHandler;
+    private Handler birdHandler;
+    private Vendors ticketShopVendor;
+    private Vendors shopVendor;
 
     // Ticket Numbers List
     private final ArrayList<String> ticketNumbers = new ArrayList<>();
@@ -25,7 +31,18 @@ public class Zoo {
     // Zoo open or closed
     private boolean isZooOpen = false;
 
-    public Zoo() {}
+    // Zoo Products
+    private ArrayList<Shop> products = new ArrayList<>();
+
+    public Zoo() {
+        this.manager = new Managers();
+        this.vet = new Veterinarians();
+        this.pachydermHandler = new Handler();
+        this.felineHandler = new Handler();
+        this.birdHandler = new Handler();
+        this.ticketShopVendor = new Vendors();
+        this.shopVendor = new Vendors();
+    }
 
     public boolean validateTicket(String ticketNumber) {
         boolean isTicketValid = false;
@@ -67,78 +84,93 @@ public class Zoo {
 
         System.out.println("--- Zoo Setup ---");
         System.out.print("Enter your name, Manager: ");
-        this.managerName = inputReader.nextLine();
+        this.manager.setName(inputReader.nextLine());
         System.out.print("Enter Veterinarian's Name: ");
-        this.vetName = inputReader.nextLine();
+        this.vet.setName(inputReader.nextLine());
         System.out.print("Enter Handler for Pachyderm Enclosure: ");
-        this.pachydermHandler = inputReader.nextLine();
+        this.pachydermHandler.setName(inputReader.nextLine());
         System.out.print("Enter Handler for Feline Enclosure: ");
-        this.felineHandler = inputReader.nextLine();
+        this.felineHandler.setName(inputReader.nextLine());
         System.out.print("Enter Handler for Bird Enclosure: ");
-        this.birdHandler = inputReader.nextLine();
+        this.birdHandler.setName(inputReader.nextLine());
         System.out.print("Enter Vendor for Ticket Shop: ");
-        this.ticketShopVendor = inputReader.nextLine();
+        this.ticketShopVendor.setName(inputReader.nextLine());
         System.out.print("Enter Vendor for Shop: ");
-        this.shopVendor = inputReader.nextLine();
+        this.shopVendor.setName(inputReader.nextLine());
 
         System.out.println("Zoo staff setup complete");
     }
 
+    public void addProductForDisplay (Shop item) {
+        products.add(item);
+    }
 
-    public String getManagerName() {
-        return managerName;
+    public void displayProducts() {
+        System.out.println("Available Products:");
+        for (int i = 0; i < products.size(); i++) {
+            System.out.println(i + 1 + ". " + products.get(i).getProductName() + " - P" + products.get(i).getProductPrice());
+        }
+    }
+
+    public Shop getProductItemByIndex(int index) {
+        return products.get(index - 1);
+    }
+
+
+    public Managers getManager() {
+        return manager;
     }
 
     public void setManagerName(String managerName) {
-        this.managerName = managerName;
+        this.manager.setName(managerName);
     }
 
-    public String getVetName() {
-        return vetName;
+    public Veterinarians getVet() {
+        return vet;
     }
 
     public void setVetName(String vetName) {
-        this.vetName = vetName;
+        this.vet.setName(vetName);
     }
 
-    public String getPachydermHandler() {
+    public Handler getPachydermHandler() {
         return pachydermHandler;
     }
 
     public void setPachydermHandler(String pachydermHandler) {
-        this.pachydermHandler = pachydermHandler;
+        this.pachydermHandler.setName(pachydermHandler);
     }
 
-    public String getFelineHandler() {
+    public Handler getFelineHandler() {
         return felineHandler;
     }
 
     public void setFelineHandler(String felineHandler) {
-        this.felineHandler = felineHandler;
+        this.felineHandler.setName(felineHandler);
     }
 
-    public String getBirdHandler() {
+    public Handler getBirdHandler() {
         return birdHandler;
     }
 
     public void setBirdHandler(String birdHandler) {
-        this.birdHandler = birdHandler;
+        this.birdHandler.setName(birdHandler);
     }
 
-    public String getTicketShopVendor() {
+    public Vendors getTicketShopVendor() {
         return ticketShopVendor;
     }
 
     public void setTicketShopVendor(String ticketShopVendor) {
-        this.ticketShopVendor = ticketShopVendor;
+        this.ticketShopVendor.setName(ticketShopVendor);
     }
 
-    public String getShopVendor() {
+    public Vendors getShopVendor() {
         return shopVendor;
     }
 
     public void setShopVendor(String shopVendor) {
-        this.shopVendor = shopVendor;
+        this.shopVendor.setName(shopVendor);
     }
 
     public ArrayList<String> getTicketNumber() {

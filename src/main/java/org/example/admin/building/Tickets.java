@@ -1,6 +1,6 @@
 package org.example.admin.building;
 
-public class TicketShop extends Shop{
+public class Tickets extends Shop{
 
     private String ticketNumberPrefix = "ZOO-";
     private int number = 1000;
