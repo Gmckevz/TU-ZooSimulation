@@ -8,21 +8,8 @@ import java.util.Scanner;
 
 
 public class ZooMain {
-    public static void main(String[] args) {
-        Scanner inputReader = new Scanner(System.in);
-        int choice = 0;
 
-        // declare zoo object
-        Zoo zooInstance = new Zoo();
-
-        // declare hospital object
-        Hospital hospitalInstance = new Hospital();
-
-        // populate animals in the enclosures
-        PachydermEnclosure pachydermEnclosure = new PachydermEnclosure();
-        FelineEnclosure felineEnclosure = new FelineEnclosure();
-        BirdEnclosure birdEnclosure = new BirdEnclosure();
-
+    public static void populateTestAnimals(PachydermEnclosure pachydermEnclosure, FelineEnclosure felineEnclosure, BirdEnclosure birdEnclosure) {
         // populate test animals
         Lion mufasa = new Lion();
         mufasa.setName("Mufasa");
@@ -59,36 +46,108 @@ public class ZooMain {
         falco.setHealthy(true);
         falco.setLocation("Enclosure");
         birdEnclosure.setAnimal(falco);
+    }
 
-        // populate zoo test products;
-        Drinks softDrinks = new Drinks();
+    public static void populateZooTestProduct(Drinks softDrinks, Foods popcorn, Gifts plushToy, Gifts keyChain, Zoo zooInstance) {
         softDrinks.setProductName("Soft Drinks");
         softDrinks.setProductPrice(30.00);
-
-        Foods popcorn = new Foods();
         popcorn.setProductName("Popcorn");
         popcorn.setProductPrice(50.00);
-
-        Gifts plushToy = new Gifts();
         plushToy.setProductName("Plush Toy");
         plushToy.setProductPrice(120.00);
-
-        Gifts keyChain = new Gifts();
         keyChain.setProductName("Keychain");
         keyChain.setProductPrice(45.00);
-
         zooInstance.addProductForDisplay(softDrinks);
         zooInstance.addProductForDisplay(popcorn);
         zooInstance.addProductForDisplay(plushToy);
         zooInstance.addProductForDisplay(keyChain);
+    }
+
+    public static void menuScreen() {
+        // zoo console, choose if you are accessing as an admin or visitor
+        System.out.println("------Welcome to the Zoo------");
+        System.out.println("What would you like to access?");
+        System.out.println("1. Zoo Admin Console ");
+        System.out.println("2. The Zoo");
+        System.out.println("3. Exit Program");
+    }
+
+    public static void zooAdminScreenNoStaff(){
+        System.out.println("========= ZOO ADMIN MAIN MENU =========");
+        System.out.println("1. Setup Zoo Staff");
+        System.out.println("2. Exit ");
+    }
+
+    public static void zooAdminScreenMain(){
+        System.out.println("========= ZOO ADMIN MAIN MENU =========");
+        System.out.println("1. Setup Zoo Staff");
+        System.out.println("2. Access Handler Module");
+        System.out.println("3. Open Zoo to Visitors");
+        System.out.println("4. Close Zoo to Visitors");
+        System.out.println("5. Exit");
+    }
+
+    public static void ticketMenuScreen() {
+        System.out.println("1. Buy Ticket");
+        System.out.println("2. Enter Existing Ticket Number");
+        System.out.println("3. Exit Zoo");
+    }
+
+    public static void visitorScreenMenu(){
+        System.out.println("Welcome to the Zoo!");
+        System.out.println("What would you like to do?");
+        System.out.println("1. Visit Enclosure");
+        System.out.println("2. Visit Shop");
+        System.out.println("3. Visit Hospital");
+        System.out.println("4. Leave Zoo");
+    }
+
+    public static void enclosureScreen() {
+        System.out.println("=== Zoo Enclosure ===");
+        System.out.println("Choose Enclosure:");
+        System.out.println("1. Pachyderm (Elephant)");
+        System.out.println("2. Feline (Lion)");
+        System.out.println("3. Bird (Owl)");
+    }
+
+    public static void visitorHospitalScreen() {
+        System.out.println("=== Zoo Visitor Hospital Monitor ===");
+        System.out.println("1. View Sick Animals");
+        System.out.println("2. View Healed Animals");
+        System.out.println("3. Attend Science Lecture");
+        System.out.println("4. Heal Animals (Veterinarian)");
+        System.out.println("5. Exit");
+    }
+
+    public static void main(String[] args) {
+        Scanner inputReader = new Scanner(System.in);
+        int choice = 0;
+
+        // declare zoo object
+        Zoo zooInstance = new Zoo();
+
+        // declare hospital object
+        Hospital hospitalInstance = new Hospital();
+
+        // populate animals in the enclosures
+        PachydermEnclosure pachydermEnclosure = new PachydermEnclosure();
+        FelineEnclosure felineEnclosure = new FelineEnclosure();
+        BirdEnclosure birdEnclosure = new BirdEnclosure();
+
+
+        // populate zoo test products;
+        Drinks softDrinks = new Drinks();
+        Foods popcorn = new Foods();
+        Gifts plushToy = new Gifts();
+        Gifts keyChain = new Gifts();
+
+        //calling method to populate
+        populateTestAnimals(pachydermEnclosure, felineEnclosure, birdEnclosure);
+        populateZooTestProduct(softDrinks, popcorn, plushToy, keyChain, zooInstance);
+
 
         while(choice != 3) {
-            // zoo console, choose if you are accessing as an admin or visitor
-            System.out.println("------Welcome to the Zoo------");
-            System.out.println("What would you like to access?");
-            System.out.println("1. Zoo Admin Console ");
-            System.out.println("2. The Zoo");
-            System.out.println("3. Exit Program");
+            menuScreen();
             System.out.print("Enter your choice: ");
             choice = inputReader.nextInt();
 
@@ -117,9 +176,8 @@ public class ZooMain {
                         int adminDashboardChoice = 0;
 
                         if (manager.getName() == null) {
-                            System.out.println("========= ZOO ADMIN MAIN MENU =========");
-                            System.out.println("1. Setup Zoo Staff");
-                            System.out.println("2. Exit ");
+                            zooAdminScreenNoStaff();
+
                             System.out.print("Choose an option: ");
                             adminDashboardChoice = inputReader.nextInt();
 
@@ -132,12 +190,7 @@ public class ZooMain {
                             }
                         } else {
                             while (adminDashboardChoice != 5) {
-                                System.out.println("========= ZOO ADMIN MAIN MENU =========");
-                                System.out.println("1. Setup Zoo Staff");
-                                System.out.println("2. Access Handler Module");
-                                System.out.println("3. Open Zoo to Visitors");
-                                System.out.println("4. Close Zoo to Visitors");
-                                System.out.println("5. Exit");
+                                zooAdminScreenMain();
                                 System.out.print("Choose an option: ");
                                 adminDashboardChoice = inputReader.nextInt();
 
@@ -148,7 +201,6 @@ public class ZooMain {
 
                                     case 2:
                                         int animalDutyMenuChoice = -1;
-                                        boolean isHandlerDoneWithTasks = false;
 
                                         System.out.print("Enter your name (Handler): ");
                                         String handler = inputReader.next();
@@ -353,9 +405,7 @@ public class ZooMain {
                         int zooVisitorChoice = 0;
 
                         while (zooVisitorChoice != 3) {
-                            System.out.println("1. Buy Ticket");
-                            System.out.println("2. Enter Existing Ticket Number");
-                            System.out.println("3. Exit Zoo");
+                            ticketMenuScreen();
                             System.out.print("Enter Choice: ");
                             zooVisitorChoice = inputReader.nextInt();
 
@@ -391,22 +441,13 @@ public class ZooMain {
                                         int visitorMenuChoice = 0;
 
                                         while (visitorMenuChoice != 4) {
-                                            System.out.println("Welcome to the Zoo!");
-                                            System.out.println("What would you like to do?");
-                                            System.out.println("1. Visit Enclosure");
-                                            System.out.println("2. Visit Shop");
-                                            System.out.println("3. Visit Hospital");
-                                            System.out.println("4. Leave Zoo");
+                                            visitorScreenMenu();
                                             System.out.print("Choose an option: ");
                                             visitorMenuChoice = inputReader.nextInt();
 
                                             switch (visitorMenuChoice) {
                                                 case 1:
-                                                    System.out.println("=== Zoo Enclosure ===");
-                                                    System.out.println("Choose Enclosure:");
-                                                    System.out.println("1. Pachyderm (Elephant)");
-                                                    System.out.println("2. Feline (Lion)");
-                                                    System.out.println("3. Bird (Owl)");
+                                                    enclosureScreen();
                                                     System.out.print("Choose an option: ");
                                                     int zooEnclosureChoice = inputReader.nextInt();
 
@@ -476,12 +517,7 @@ public class ZooMain {
                                                 case 3:
                                                     int zooVisitorHospitalChoice = 0;
                                                     while (zooVisitorHospitalChoice != 5) {
-                                                        System.out.println("=== Zoo Visitor Hospital Monitor ===");
-                                                        System.out.println("1. View Sick Animals");
-                                                        System.out.println("2. View Healed Animals");
-                                                        System.out.println("3. Attend Science Lecture");
-                                                        System.out.println("4. Heal Animals (Veterinarian)");
-                                                        System.out.println("5. Exit");
+                                                        visitorHospitalScreen();
                                                         System.out.print("Choose an option: ");
                                                         zooVisitorHospitalChoice = inputReader.nextInt();
 
