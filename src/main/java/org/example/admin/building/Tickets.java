@@ -1,16 +1,17 @@
 package org.example.admin.building;
 
-public class TicketShop extends Shop{
+public class Tickets extends Shop{
 
     private String ticketNumberPrefix = "ZOO-";
     private int number = 1000;
 
     public void displayWelcomeMessage () {
+        System.out.println("=== WELCOME TO THE ZOO TICKET SHOP ===");
         System.out.println("Here's what you can experience in the zoo:" +
-                "Visit Animal Enclosures (Elephant, Lion, Owl)" +
-                "Buy Snacks and Drinks from our Shops" +
-                "Listen to science lectures at the Hospital" +
-                "Buy fun gifts at our Gift Shop");
+                " Visit Animal Enclosures (Elephant, Lion, Owl)" +
+                " Buy Snacks and Drinks from our Shops" +
+                " Listen to science lectures at the Hospital" +
+                " Buy fun gifts at our Gift Shop");
     }
 
     public void determinePriceOfTicket(int age) {
@@ -30,11 +31,7 @@ public class TicketShop extends Shop{
     }
 
     public String getTicketNumber() {
-        return ticketNumberPrefix + number;
-    }
-
-    public void incrementTicketNumber() {
-        number++;
+        return ticketNumberPrefix + number++;
     }
 
 }

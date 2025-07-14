@@ -2,6 +2,8 @@ package org.example.admin.people;
 
 import org.example.Animal;
 import org.example.Hospital;
+import org.example.admin.building.Enclosure;
+import org.example.admin.building.FelineEnclosure;
 
 import java.time.LocalDateTime;
 
@@ -9,6 +11,7 @@ public class Handler extends People {
     private boolean isDoneFeeding = false;
     private boolean isDoneExecising = false;
     private boolean isDoneExamining = false;
+    private boolean changesOccured;
 
     LocalDateTime dataTime = LocalDateTime.now();
 
@@ -24,7 +27,8 @@ public class Handler extends People {
         isDoneExecising = true;
     }
 
-    public void examine(Animal animal, Hospital hospital) {
+    public void examine(Animal animal, Hospital hospital, Enclosure enclosure) {
+        changesOccured = false;
         System.out.println("Examining " + animal.getName());
         if (!animal.isHealthy()){
             hospital.addSickAnimal(animal, dataTime);
@@ -32,6 +36,12 @@ public class Handler extends People {
 
             System.out.println("Sending to Hospital...");
             System.out.println(animal.getName() + " admitted at " + dataTime);
+
+            animal.setAnimalSentToHospital(true);
+            enclosure.getAnimals().remove(animal);
+        } else {
+            System.out.println(animal.getName() + " is healthy!");
+            System.out.println();
         }
     }
 
