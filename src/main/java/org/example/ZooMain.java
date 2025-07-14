@@ -148,8 +148,10 @@ public class ZooMain {
 
         while(choice != 3) {
             menuScreen();
+
             System.out.print("Enter your choice: ");
-            choice = inputReader.nextInt();
+                choice = inputReader.nextInt();
+
 
             switch (choice) {
                 case 1:
