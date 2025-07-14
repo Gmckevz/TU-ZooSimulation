@@ -1,4 +1,6 @@
 Project Title: Zoo Simulator
+Author: Bryan Christian Javier
+      : Mc Kevin Aranda
 
 Project Objectives Interpret class diagrams, associations, generalizations, and multiplicities from UML. Translate visual design into object-oriented architecture.
 
